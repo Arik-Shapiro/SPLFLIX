@@ -1,6 +1,6 @@
 #include "../include/Action.h"
 
-BaseAction::BaseAction() : status(PENDING), errorMsg("") {}
+BaseAction::BaseAction() : errorMsg(""), status(PENDING) {}
 
 ActionStatus BaseAction::getStatus() const { return status; }
 
@@ -24,5 +24,9 @@ std::string BaseAction::statusToString() const {
             break;
     }
     return out;
+}
+
+BaseAction::~BaseAction() {
+
 }
 

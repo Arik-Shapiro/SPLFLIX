@@ -2,16 +2,19 @@
 
 DeleteUser::DeleteUser(std::string userToDelete) : userToDelete(userToDelete) {}
 
+DeleteUser::~DeleteUser() {}
+
 void DeleteUser::act(Session &sess) {
-    User *user = sess.getUserMap()[userToDelete];
-    if (user != nullptr) {
+    if(sess.deleteUser(userToDelete))
         complete();
-        delete user;
-    } else {
-        error("Error - Couldn't delete user");
-    }
+    else
+        error("Error - failed to delete user, user doesn't exist.");
 }
 
 std::string DeleteUser::toString() const {
     return "DeleteUser " + this->statusToString();
+}
+
+BaseAction* DeleteUser::clone() const {
+    return new DeleteUser(*this);
 }

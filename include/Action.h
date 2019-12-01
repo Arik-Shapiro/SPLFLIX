@@ -19,10 +19,12 @@ enum ActionStatus{
 class BaseAction{
 public:
 	BaseAction();
+	virtual ~BaseAction();
 	ActionStatus getStatus() const;
-	virtual void act(Session& sess)=0;
-	virtual std::string toString() const=0;
+	virtual void act(Session& sess) = 0;
+	virtual std::string toString() const = 0;
 	std::string statusToString() const;
+	virtual BaseAction* clone() const = 0;
 protected:
 	void complete();
 	void error(const std::string& errorMsg);
@@ -34,9 +36,11 @@ private:
 
 class CreateUser  : public BaseAction {
 public:
+    virtual ~CreateUser();
     CreateUser(std::string userName, std::string userAlgo);
 	virtual void act(Session& sess);
 	virtual std::string toString() const;
+    virtual BaseAction* clone() const;
 private:
     std::string userName;
     std::string userAlgo;
@@ -44,18 +48,22 @@ private:
 
 class ChangeActiveUser : public BaseAction {
 public:
+    virtual ~ChangeActiveUser();
     ChangeActiveUser(std::string userToChange);
 	virtual void act(Session& sess);
 	virtual std::string toString() const;
+    virtual BaseAction* clone() const;
 private:
     std::string userToChange;
 };
 
 class DeleteUser : public BaseAction {
 public:
+    virtual ~DeleteUser();
     DeleteUser(std::string userToDelete);
 	virtual void act(Session & sess);
 	virtual std::string toString() const;
+    virtual BaseAction* clone() const;
 private:
     std::string userToDelete;
 };
@@ -63,31 +71,40 @@ private:
 
 class DuplicateUser : public BaseAction {
 public:
-    DuplicateUser(std::string userToDuplicate);
+    virtual ~DuplicateUser();
+    DuplicateUser(std::string userToDuplicate, std::string newUserName);
 	virtual void act(Session & sess);
 	virtual std::string toString() const;
+    virtual BaseAction* clone() const;
 private:
     std::string userToDuplicate;
+    std::string newUserName;
 };
 
 class PrintContentList : public BaseAction {
 public:
-	virtual void act (Session& sess);
+    virtual ~PrintContentList();
+    virtual void act (Session& sess);
 	virtual std::string toString() const;
+    virtual BaseAction* clone() const;
 };
 
 class PrintWatchHistory : public BaseAction {
 public:
-	virtual void act (Session& sess);
+    virtual ~PrintWatchHistory();
+    virtual void act (Session& sess);
 	virtual std::string toString() const;
+    virtual BaseAction* clone() const;
 };
 
 
 class Watch : public BaseAction {
 public:
+    virtual ~Watch();
     Watch(long contentId);
 	virtual void act(Session& sess);
 	virtual std::string toString() const;
+    virtual BaseAction* clone() const;
 private:
     long contentId;
 };
@@ -95,13 +112,17 @@ private:
 
 class PrintActionsLog : public BaseAction {
 public:
-	virtual void act(Session& sess);
+    virtual ~PrintActionsLog();
+    virtual void act(Session& sess);
 	virtual std::string toString() const;
+    virtual BaseAction* clone() const;
 };
 
 class Exit : public BaseAction {
 public:
-	virtual void act(Session& sess);
+    virtual ~Exit();
+    virtual void act(Session& sess);
 	virtual std::string toString() const;
+    virtual BaseAction* clone() const;
 };
 #endif
