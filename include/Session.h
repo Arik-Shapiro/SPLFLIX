@@ -38,7 +38,6 @@ private:
     void readData(const std::string &configFilePath);
     void clearAll();
     void cloneAll(const Session &sess);
-    void nullifyAll();
     bool isActive;
     std::vector<Watchable *> content;
     std::vector<BaseAction *> actionsLog;

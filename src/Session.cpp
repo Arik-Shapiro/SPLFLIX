@@ -9,9 +9,8 @@ Session::Session(const std::string &configFilePath) : isActive(true), content(),
 Session::Session(const Session &sess) : isActive(true), content(), actionsLog(), userMap(), activeUser(nullptr) {
     cloneAll(sess);
 }
-Session::Session(Session &&sess) : isActive(true), content(), actionsLog(), userMap(), activeUser(nullptr){
-    cloneAll(sess);
-    sess.clearAll();
+Session::Session(Session &&sess) : isActive(true), content(std::move(sess.content)), actionsLog(std::move(sess.actionsLog)), userMap(std::move(sess.userMap)), activeUser(sess.activeUser){
+    sess.activeUser = nullptr;
 }
 
 Session &Session::operator=(const Session &sess) {
@@ -24,8 +23,11 @@ Session &Session::operator=(const Session &sess) {
 Session &Session::operator=(Session &&sess){
     if(this != &sess){
         clearAll();
-        cloneAll(sess);
-        sess.nullifyAll();
+        this->content = std::move(sess.content);
+        this->actionsLog = std::move(sess.actionsLog);
+        this->userMap = std::move(sess.userMap);
+        this->activeUser = sess.activeUser;
+        sess.activeUser = nullptr;
     }
     return *this;
 }
@@ -220,16 +222,6 @@ void Session::cloneAll(const Session &sess) {
     for(BaseAction *action : sess.actionsLog){
         actionsLog.push_back(action->clone());
     }
-}
-
-void Session::nullifyAll() {
-    for (std::pair<std::string, User *> userPair : userMap)
-        userPair.second = nullptr;
-    for(Watchable *watchable : content)
-        watchable = nullptr;
-    for(BaseAction *baseAction : actionsLog)
-        baseAction = nullptr;
-    activeUser = nullptr;
 }
 
 
