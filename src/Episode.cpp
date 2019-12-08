@@ -14,14 +14,8 @@ Watchable* Episode::getNextWatchable(Session & sess) const {
 void Episode::setNextEpisodeId(int nextEpisodeId) { this->nextEpisodeId = nextEpisodeId; }
 
 std::string Episode::toString() const {
-    string output = std::to_string(getId()) + ". " + seriesName + " S" + std::to_string(season)
-            + "E" + std::to_string(episode) + " " + std::to_string(getLength()) + " minutes " + "[";
-    vector<string> tags = getTags();
-    unsigned long i;
-    for(i = 0; i < tags.size() - 1; i++){
-        output += tags[i] + ", ";
-    }
-    output = output + tags[i] + "]";
+    string output = seriesName + " S" + std::to_string(season)
+            + "E" + std::to_string(episode);
     return output;
 }
 

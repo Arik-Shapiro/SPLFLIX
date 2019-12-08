@@ -1,6 +1,6 @@
 #include "../include/User.h"
 
-RerunRecommenderUser::RerunRecommenderUser(const std::string &name) : User(name), recommendationIndex(0) {}
+RerunRecommenderUser::RerunRecommenderUser(const std::string &name) : User(name), recommendationIndex(1) {}
 
 RerunRecommenderUser::RerunRecommenderUser(const RerunRecommenderUser &user, std::string dupName) :
         User(user, dupName), recommendationIndex(user.recommendationIndex) {}
@@ -17,8 +17,9 @@ User* RerunRecommenderUser::clone(const std::vector<Watchable *> &history) {
 }
 
 Watchable *RerunRecommenderUser::getRecommendation(Session &s) {
+    Watchable *recommend = history[(recommendationIndex - 1) % history.size()];
     recommendationIndex++;
-    return history[recommendationIndex - 1 % history.size()];
+    return recommend;
 }
 
 void RerunRecommenderUser::watch(Watchable *watchable) {

@@ -4,8 +4,10 @@ PrintWatchHistory::~PrintWatchHistory() {}
 void PrintWatchHistory::act(Session &sess) {
     std::vector<Watchable *> history = sess.getActiveUser().get_history();
     std::cout << "Watch history for " + sess.getActiveUser().getName() << endl;
+    int historyIndex = 1;
     for (Watchable *i : history) {
-        std::cout << i->toString() << endl;
+        std::cout << std::to_string(historyIndex) + ". " + i->toString() << endl;
+        historyIndex++;
     }
     complete();
 }

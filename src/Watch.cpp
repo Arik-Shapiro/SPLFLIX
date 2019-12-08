@@ -14,8 +14,8 @@ void Watch::act(Session &sess) {
         std::cin >> inp;
         if(inp == 'y') {
             Watch *watch = new Watch(recommendation->getId());
-            watch->act(sess);
             sess.getActionsLog().push_back(watch);
+            watch->act(sess);
         }
     } else {
         error("Error - bad content id input");

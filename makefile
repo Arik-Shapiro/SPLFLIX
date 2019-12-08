@@ -8,16 +8,16 @@ HEADER = include/Action.h
 all: splflix
 
 # Tool invocations
-splflix: bin/main.o bin/Session.o bin/User.o bin/LengthRecommenderUser.o bin/RerunRecommenderUser.o bin/GenreRecommenderUser.o bin/Watchable.o bin/Episode.o bin/Movie.o bin/BaseAction.o bin/ChangeActiveUser.o bin/CreateUser.o bin/DeleteUser.o bin/DuplicateUser.o bin/Exit.o bin/PrintActionsLog.o bin/PrintContentList.o bin/PrintWatchHistory.o bin/Watch.o
-	@echo 'Building target: main'
+splflix: bin/Main.o bin/Session.o bin/User.o bin/LengthRecommenderUser.o bin/RerunRecommenderUser.o bin/GenreRecommenderUser.o bin/Watchable.o bin/Episode.o bin/Movie.o bin/BaseAction.o bin/ChangeActiveUser.o bin/CreateUser.o bin/DeleteUser.o bin/DuplicateUser.o bin/Exit.o bin/PrintActionsLog.o bin/PrintContentList.o bin/PrintWatchHistory.o bin/Watch.o
+	@echo 'Building target: Main'
 	@echo 'Invoking: C++ Linker'
-	g++ -o bin/splflix bin/main.o bin/Session.o bin/User.o bin/LengthRecommenderUser.o bin/RerunRecommenderUser.o bin/GenreRecommenderUser.o bin/Watchable.o bin/Episode.o bin/Movie.o bin/BaseAction.o bin/ChangeActiveUser.o bin/CreateUser.o bin/DeleteUser.o bin/DuplicateUser.o bin/Exit.o bin/PrintActionsLog.o bin/PrintContentList.o bin/PrintWatchHistory.o bin/Watch.o
-	@echo 'Finished building target: main'
+	g++ -o bin/splflix bin/Main.o bin/Session.o bin/User.o bin/LengthRecommenderUser.o bin/RerunRecommenderUser.o bin/GenreRecommenderUser.o bin/Watchable.o bin/Episode.o bin/Movie.o bin/BaseAction.o bin/ChangeActiveUser.o bin/CreateUser.o bin/DeleteUser.o bin/DuplicateUser.o bin/Exit.o bin/PrintActionsLog.o bin/PrintContentList.o bin/PrintWatchHistory.o bin/Watch.o
+	@echo 'Finished building target: Main'
 	@echo ' '
 
 # Depends on the source and header files
-bin/main.o: src/main.cpp include/Session.h
-	g++ -g -Wall -Weffc++ -std=c++11 -c -Iinclude -o bin/main.o src/main.cpp
+bin/Main.o: src/Main.cpp include/Session.h
+	g++ -g -Wall -Weffc++ -std=c++11 -c -Iinclude -o bin/Main.o src/Main.cpp
 bin/BaseAction.o: src/BaseAction.cpp include/Action.h include/User.h include/Session.h include/Watchable.h
 	g++ -g -Wall -Weffc++ -std=c++11 -c -Iinclude -o bin/BaseAction.o src/BaseAction.cpp
 bin/ChangeActiveUser.o: src/ChangeActiveUser.cpp include/Action.h include/User.h include/Session.h include/Watchable.h

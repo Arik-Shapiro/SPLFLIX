@@ -125,7 +125,7 @@ void Session::readData(const std::string &configFilePath) {
     try {
         using json = nlohmann::json ;
         json j;
-        std::ifstream reader("../config1.json");
+        std::ifstream reader(configFilePath);
         reader >> j;
         long id = 1;
             for (const auto &movie : j["movies"]) {
@@ -205,6 +205,9 @@ void Session::clearAll() {
         delete watchable;
     for(BaseAction *baseAction : actionsLog)
         delete baseAction;
+    content.clear();
+    actionsLog.clear();
+    userMap.clear();
 }
 
 void Session::cloneAll(const Session &sess) {
